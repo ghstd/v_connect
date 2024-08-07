@@ -1,7 +1,16 @@
 require 'em-websocket'
+require 'webrick'
 
 HOST = '0.0.0.0'
 PORT = 3000
+
+Thread.new do
+  server = WEBrick::HTTPServer.new(Port: PORT)
+  server.mount_proc '/' do |req, res|
+    res.body = 'HTTP Server is running'
+  end
+  server.start
+end
 
 EventMachine.run do
   p "server started on port #{PORT}"
