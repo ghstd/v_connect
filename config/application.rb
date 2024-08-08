@@ -34,6 +34,7 @@ module Connect
     config.action_cable.url = 'wss://v-connect-q36m.onrender.com/cable'
     config.action_cable.disable_request_forgery_protection = true
     # config.action_cable.allowed_request_origins = [ 'https://bass-loyal-closely.ngrok-free.app', 'http://localhost:3000' ]
+    config.active_record.sqlite3_production_warning=false
     # ====================================
   end
 end
