@@ -1,16 +1,20 @@
 class VlhmConnect < ApplicationCable::Channel
   def subscribed
-    p '!!!!!!!!!! VlhmConnect subscribed !!!!!!!!!'
-    # Подписка на канал
     stream_from "vlhm_connect"
   end
 
   def unsubscribed
-    # Любая необходимая очистка при отключении
   end
 
-  def receive(data)
-    # Обработка входящих данных от клиента
-    ActionCable.server.broadcast("vlhm_connect", data)
+  def signal_message(data)
+    message = data['message']
+    sender_id = data['client_id']
+    ActionCable.server.broadcast('vlhm_connect', {type: 'signal_message', message: message, sender_id: sender_id})
+  end
+
+  def text_message(data)
+    message = data['message']
+    sender_id = data['client_id']
+    ActionCable.server.broadcast('vlhm_connect', {type: 'text_message', message: message, sender_id: sender_id})
   end
 end
